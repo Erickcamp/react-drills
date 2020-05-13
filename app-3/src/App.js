@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      filterWeek: "",
+      daysArr: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    };
+  }
+
+  handleChange(filter) {
+    this.setState({ filterWeek: filter });
+  }
+
+  render() {
+    let week = this.state.daysArr
+      .filter((element, index) => {
+        return element.includes(this.state.filterWeek);
+      })
+      .map((element, index) => {
+        return <h2 key={index}>{element}</h2>;
+      })
+      
+
+    return (
+      <div className="App">
+        <input onChange={e => this.handleChange(e.target.value)}/>
+        {week}
+      </div>
+    );
+  }
 }
 
 export default App;
